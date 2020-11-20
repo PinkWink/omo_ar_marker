@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<robot name="omo_ar_marker" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="base_footprint"/>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="1.5758 0.0 1.5758"/>
+      <geometry>
+        <mesh filename="package://omo_ar_marker/meshes/sensors/omo_camera.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.0" rpy="1.5758 0.0 1.5758"/>
+      <geometry>
+        <mesh filename="package://omo_ar_marker/meshes/sensors/omo_camera.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_rgb_joint" type="fixed">
+    <origin xyz="0.03 0.0 0.0" rpy="0 0 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_rgb_frame"/>
+  </joint>
+  
+  <link name="camera_rgb_frame"/>
+
+  <joint name="camera_rgb_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+    <parent link="camera_rgb_frame"/>
+    <child link="camera_rgb_optical_frame"/>
+  </joint>
+
+  <link name="camera_rgb_optical_frame"/>
+</robot>

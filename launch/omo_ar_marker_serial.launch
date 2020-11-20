@@ -1,0 +1,27 @@
+<launch>
+    
+    <arg name="video_device_id"         default="/dev/video0"/>
+    <arg name="marker_size"             default="11.9"/>
+
+    <param name="robot_description"     command="$(find xacro)/xacro --inorder '$(find omo_ar_marker)/urdf/omo_ar_marker.urdf.xacro'" />
+
+    <node pkg="robot_state_publisher"   type="robot_state_publisher" name="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="50.0" />
+        <param name="tf_prefix" value=""/>
+    </node>
+
+    <node pkg="joint_state_publisher"   type="joint_state_publisher" name="joint_state_publisher">
+        <param name="use_gui"   value="false"/>
+        <param name="rate"      value="50"/>
+    </node>
+
+    <include file="$(find omo_ar_marker)/launch/camera.launch">
+        <arg name="video_device_id"         value="$(arg video_device_id)"/>
+    </include>
+
+    <include file="$(find omo_ar_marker)/launch/ar_alvar.launch">
+        <arg name="marker_size"             value="$(arg marker_size)"/>
+    </include>
+
+    <node name="send_marker_position" pkg="omo_ar_marker" type="send_marker_position.py" output="screen" />
+</launch>
