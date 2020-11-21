@@ -23,6 +23,8 @@
         <arg name="marker_size"             value="$(arg marker_size)"/>
     </include>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find omo_ar_marker)/rviz/ar_track.rviz"/>
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find omo_ar_marker)/rviz/ar_track.rviz"/> -->
+
+    <node name="send_marker_position" pkg="omo_ar_marker" type="send_marker_position.py" output="screen" />
     
 </launch>
